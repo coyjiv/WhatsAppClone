@@ -15,6 +15,7 @@ import * as React from "react";
 import { ColorSchemeName, Pressable, View } from "react-native";
 import { Octicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
@@ -65,7 +66,7 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="Root"
-        component={BottomTabNavigator}
+        component={MainTabNavigator}
         options={{
           title: "WhatsApp",
           headerRight: () => (
@@ -104,19 +105,19 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const MainTab = createMaterialTopTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
+function MainTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator
+    <MainTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
-      <BottomTab.Screen
+      <MainTab.Screen
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
@@ -139,7 +140,7 @@ function BottomTabNavigator() {
           ),
         })}
       />
-      <BottomTab.Screen
+      <MainTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
@@ -147,7 +148,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-    </BottomTab.Navigator>
+    </MainTab.Navigator>
   );
 }
 
